@@ -9,7 +9,12 @@
         <img src="../assets/food.svg" alt="Food">
 
         <p class="mt-1 text-center">Welcome To</p>
-        <h1 class="text-center text-5xl mt-1 font-semibold">NyamNyum!</h1>
+        <h1 class="text-center text-5xl mt-1 font-semibold text-orange-500">NyamNyum!</h1>
         <p class="mt-3 text-center">Find your favorite recipe</p>
+    </div>
+
+    <div class="my-4 flex justify-center">
+        <router-link to="#" class="mr-2">Search</router-link>
+        <router-link to="#" class="ml-2">Favorite</router-link>
     </div>
 </template>
