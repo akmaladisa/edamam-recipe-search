@@ -4,10 +4,10 @@
         </span>
         <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
             <li>
-                <a href="#" class="mr-4 hover:underline md:mr-6 ">Github</a>
+                <a href="https://github.com/akmaladisa" class="mr-4 hover:underline hover:text-green-400 md:mr-6 ">Github</a>
             </li>
             <li>
-                <a href="#" class="mr-4 hover:underline md:mr-6">Linkedin</a>
+                <a href="https://www.linkedin.com/in/akmaladisa/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3Bewwa%2FWWiSVKQWvvj7R8mWw%3D%3D" class="mr-4 hover:underline md:mr-6 hover:text-green-400 ">Linkedin</a>
             </li>
         </ul>
     </footer>
