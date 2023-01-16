@@ -5,13 +5,7 @@
 
             <the-jumbotron></the-jumbotron>
 
-            <div class="my-3 text-center">
-                <h1 class="font-semibold mb-3 text-3xl">Find Recipe</h1>
-
-                <form>
-                    <input type="text" placeholder="Food Recipe" class="drop-shadow-lg text-orange-500 rounded-lg p-3 focus:outline-none focus:drop-shadow-md">
-                </form>
-            </div>
+            <the-form></the-form>
         </div>
 
     </div>
@@ -20,10 +14,12 @@
 <script>
 
 import TheJumbotron from './TheJumbotron.vue';
+import TheForm from './TheForm.vue';
 
 export default {
     components: {
         TheJumbotron,
+        TheForm
     }
 }
 

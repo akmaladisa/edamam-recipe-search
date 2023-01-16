@@ -14,7 +14,19 @@
     </div>
 
     <div class="my-4 flex justify-center">
-        <router-link to="#" class="mr-2">Search</router-link>
-        <router-link to="#" class="ml-2">Favorite</router-link>
+        <router-link to="/" class="mr-2">Search</router-link>
+        <router-link to="/search" class="ml-2">Favorite</router-link>
     </div>
 </template>
+
+<style scoped>
+
+a.router-link-active {
+    background-color: #FFE5B4;
+    color: #1A4D2E;
+    padding: .8em;
+    border-radius: 25px;
+    box-shadow: .5px .5px .5px;
+}
+
+</style>
