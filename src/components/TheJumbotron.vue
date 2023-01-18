@@ -15,7 +15,7 @@
 
     <div class="my-4 flex justify-center">
         <router-link to="/" class="mr-2">Search</router-link>
-        <router-link to="/search" class="ml-2">Favorite</router-link>
+        <router-link to="/favorite" class="ml-2">Favorite</router-link>
     </div>
 </template>
 
