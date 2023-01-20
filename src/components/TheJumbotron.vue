@@ -1,5 +1,5 @@
 <template>
-    <div class="w-100 mb-3 text-center">
+    <div class="w-72 mb-3 text-center mx-auto">
         <a href="https://edamam.com" class="block">
             <img src="../assets/edamam.svg" alt="">
         </a>
