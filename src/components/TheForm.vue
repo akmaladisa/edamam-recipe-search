@@ -8,122 +8,24 @@
                 <input v-model="recipeKeyword" type="text" placeholder="e.g. rendang, chicken, etc." id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:bg-slate-600 dark:text-gray-200 dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
 
-            <div class="mb-10">
-                <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900">Diet Label</label>
-                <div class="flex flex-wrap mb-4 justify-start">
-                    <div>
-                        <input type="checkbox" value="balanced" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">balanced</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="high-fiber" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">high-fiber</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="high-protein" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">high-protein</label>
+            <div class="mb-10 flex justify-between">
+                <div>
+                    <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900">Health Label</label>
+                    <div class="flex flex-wrap mb-4 justify-start flex-col">
+                        <div v-for="healthLabel in healthLabels" :key="healthLabel.id">
+                            <input type="checkbox" value="{{ healthLabel.id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">{{ healthLabel.appear }}</label>
+                        </div>
                     </div>
                 </div>
-                <div class="flex flex-wrap justify-start">
-                    <div>
-                        <input type="checkbox" value="low-carb" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">low-carb</label>
-                    </div>
 
-                    <div>
-                        <input type="checkbox" value="low-fat" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">low-fat</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="low-sodium" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">low-sodium</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900">Health Label</label>
-                <div class="flex flex-wrap mb-4 justify-start">
-                    <div>
-                        <input type="checkbox" value="alcohol-free" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">alcohol-free</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="celery-free" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">celery-free</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="vegetarian" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">vegetarian</label>
-                    </div>
-                </div>
-                <div class="flex flex-wrap justify-start mb-4">
-                    <div>
-                        <input type="checkbox" value="egg-free" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">egg-free</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="fish-free" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">fish-free</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="vegan" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">vegan</label>
-                    </div>
-                </div>
-                <div class="flex flex-wrap justify-start mb-4">
-                    <div>
-                        <input type="checkbox" value="gluten-free" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">gluten-free</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="sugar-conscious" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">sugar-conscious</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="mustard-free" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">mustard-free</label>
-                    </div>
-                </div>
-                <div class="flex flex-wrap justify-start mb-4">
-                    <div>
-                        <input type="checkbox" value="soy-free" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">soy-free</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="low-fat-abs" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">low-fat-abs</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="low-potassium" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">low-potassium</label>
-                    </div>
-                </div>
-                <div class="flex flex-wrap justify-start mb-4">
-                    <div>
-                        <input type="checkbox" value="low-sugar" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">low-sugar</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="pork-free" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">pork-free</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" value="red-meat-free" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">red-meat-free</label>
+                <div>
+                    <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900">Diet Label</label>
+                    <div class="flex flex-wrap mb-4 justify-start flex-col">
+                        <div v-for="dietLabel in dietLabels" :key="dietLabel.id">
+                            <input type="checkbox" value="{{ dietLabel.id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">{{ dietLabel.appear }}</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,8 +45,94 @@ export default {
         return {
             recipeKeyword: '',
             recipeResults: [],
-            healthLabels: [],
-            dietLabels: []
+            healthLabels: [
+                {
+                    id: 'alcohol-free',
+                    appear: 'Alcohol Free'
+                },
+                {
+                    id: 'celery-free',
+                    appear: 'Celery Free'
+                },
+                {
+                    id: 'vegetarian',
+                    appear: 'Vegetarian'
+                },
+                {
+                    id: 'egg-free',
+                    appear: 'Egg Free'
+                },
+                {
+                    id: 'fish-free',
+                    appear: 'Fish Free'
+                },
+                {
+                    id: 'vegan',
+                    appear: 'Vegan'
+                },
+                {
+                    id: 'gluten-free',
+                    appear: 'Gluten Free'
+                },
+                {
+                    id: 'sugar-conscious',
+                    appear: 'Sugar Conscious'
+                },
+                {
+                    id: 'mustard-free',
+                    appear: 'Mustard Free'
+                },
+                {
+                    id: 'soy-free',
+                    appear: 'Soy Free'
+                },
+                {
+                    id: 'low-fat-abs',
+                    appear: 'Low Fat Abs'
+                },
+                {
+                    id: 'low-potassium',
+                    appear: 'Low Potassium'
+                },
+                {
+                    id: 'low-sugar',
+                    appear: 'Low Sugar'
+                },
+                {
+                    id: 'pork-free',
+                    appear: 'Pork Free'
+                },
+                {
+                    id: 'red-meat-free',
+                    appear: 'Red Meat Free'
+                },
+            ],
+            dietLabels: [
+                {
+                    id: 'balanced',
+                    appear: 'Balanced'
+                },
+                {
+                    id: 'high-fiber',
+                    appear: 'High Fiber'
+                },
+                {
+                    id: 'high-protein',
+                    appear: 'High Protein'
+                },
+                {
+                    id: 'low-carb',
+                    appear: 'Low Carb'
+                },
+                {
+                    id: 'low-fat',
+                    appear: 'Low Fat'
+                },
+                {
+                    id: 'low-sodium',
+                    appear: 'Low Sodium'
+                },
+            ]
         }
     },
 
