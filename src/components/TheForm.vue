@@ -8,7 +8,7 @@
                 <input v-model="recipeKeyword" type="text" placeholder="e.g. rendang, chicken, etc." id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:bg-slate-600 dark:text-gray-200 dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
 
-            <div class="mb-10 flex justify-between">
+            <div class="mb-2 flex justify-between">
                 <div>
                     <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900">Health Label</label>
                     <div class="flex flex-wrap mb-4 justify-start flex-col">
@@ -39,12 +39,12 @@
 
 <script>
 import axios from 'axios';
+import { recipe } from "../stores/index.js"
 
 export default {
     data() {
         return {
             recipeKeyword: '',
-            recipeResults: [],
             selectedHealthLabels: [],
             selectedDietLabels: [],
             healthLabels: [
@@ -134,7 +134,9 @@ export default {
                     id: 'low-sodium',
                     appear: 'Low Sodium'
                 },
-            ]
+            ],
+            recipeResults: [],
+            isLoadingToSearch: false
         }
     },
 
@@ -145,17 +147,22 @@ export default {
             }
 
             if( this.selectedDietLabels.length < 1 && this.selectedHealthLabels.length < 1 ) {
-                const response = await axios.get(`https://api.edamam.com/api/recipes/v2?type=public&q=${this.recipeKeyword}&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112`)
-                this.recipeResults = response.data.hits;
+                recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
 
+                const response = await axios.get(`https://api.edamam.com/api/recipes/v2?type=public&q=${this.recipeKeyword}&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112`)
+
+                recipe.recipeResults = response.data;
+
+                recipe.isLoadingToSearch = !recipe.isLoadingToSearch
                 this.recipeKeyword = '';
 
-                console.log(this.recipeResults);
+                console.log(recipe.recipeResults);
             }
 
             if( this.selectedDietLabels.length > 0 && this.selectedHealthLabels.length < 1 ) {
                 // URL with params should look like this
                 // `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112&diet=high-fiber&diet=high-protein&diet=low-carb&diet=low-fat`
+                recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
 
                 let baseURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${this.recipeKeyword}&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112`;
 
@@ -167,11 +174,14 @@ export default {
                 this.selectedDietLabels = [];
 
                 const response = await axios.get( baseURL );
-                this.recipeResults = response.data.hits;
-                console.log(this.recipeResults);
+                recipe.recipeResults = response.data;
+                recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
+                console.log(recipe.recipeResults);
             }
 
             if( this.selectedHealthLabels.length > 0 && this.selectedDietLabels.length < 1 ) {
+                recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
+
                 let baseURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${this.recipeKeyword}&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112`;
 
                 for (const params of this.selectedHealthLabels) {
@@ -182,11 +192,13 @@ export default {
                 this.selectedHealthLabels = [];
 
                 const response = await axios.get( baseURL );
-                this.recipeResults = response.data.hits;
-                console.log(this.recipeResults);  
+                recipe.recipeResults = response.data;
+                recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
+                console.log(recipe.recipeResults);  
             }
 
             if( this.selectedDietLabels.length > 0 && this.selectedHealthLabels.length > 0 ) {
+                recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
                 let baseURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${this.recipeKeyword}&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112`;
 
                 for (const params of this.selectedDietLabels) {
@@ -202,8 +214,9 @@ export default {
                 this.selectedHealthLabels = [];
 
                 const response = await axios.get( baseURL );
-                this.recipeResults = response.data.hits;
-                console.log(this.recipeResults);
+                recipe.recipeResults = response.data;
+                recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
+                console.log(recipe.recipeResults);
             }
         },
     }
