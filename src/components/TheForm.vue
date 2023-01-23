@@ -13,7 +13,7 @@
                     <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900">Health Label</label>
                     <div class="flex flex-wrap mb-4 justify-start flex-col">
                         <div v-for="healthLabel in healthLabels" :key="healthLabel.id">
-                            <input type="checkbox" value="{{ healthLabel.id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input v-model="selectedHealthLabels" type="checkbox" :value="healthLabel.id" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">{{ healthLabel.appear }}</label>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                     <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900">Diet Label</label>
                     <div class="flex flex-wrap mb-4 justify-start flex-col">
                         <div v-for="dietLabel in dietLabels" :key="dietLabel.id">
-                            <input type="checkbox" value="{{ dietLabel.id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input v-model="selectedDietLabels" type="checkbox" :value="dietLabel.id" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label class="mr-5 ml-1 text-sm text-gray-900 dark:text-gray-300">{{ dietLabel.appear }}</label>
                         </div>
                     </div>
@@ -45,6 +45,8 @@ export default {
         return {
             recipeKeyword: '',
             recipeResults: [],
+            selectedHealthLabels: [],
+            selectedDietLabels: [],
             healthLabels: [
                 {
                     id: 'alcohol-free',
@@ -141,7 +143,69 @@ export default {
             if( this.recipeKeyword.trim() == '' ) {
                 return alert('Recipe keywords must be filled')
             }
-        }
+
+            if( this.selectedDietLabels.length < 1 && this.selectedHealthLabels.length < 1 ) {
+                const response = await axios.get(`https://api.edamam.com/api/recipes/v2?type=public&q=${this.recipeKeyword}&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112`)
+                this.recipeResults = response.data.hits;
+
+                this.recipeKeyword = '';
+
+                console.log(this.recipeResults);
+            }
+
+            if( this.selectedDietLabels.length > 0 && this.selectedHealthLabels.length < 1 ) {
+                // URL with params should look like this
+                // `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112&diet=high-fiber&diet=high-protein&diet=low-carb&diet=low-fat`
+
+                let baseURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${this.recipeKeyword}&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112`;
+
+                for (const params of this.selectedDietLabels) {
+                    baseURL += `&diet=${params}`;
+                }
+
+                this.recipeKeyword = '';
+                this.selectedDietLabels = [];
+
+                const response = await axios.get( baseURL );
+                this.recipeResults = response.data.hits;
+                console.log(this.recipeResults);
+            }
+
+            if( this.selectedHealthLabels.length > 0 && this.selectedDietLabels.length < 1 ) {
+                let baseURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${this.recipeKeyword}&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112`;
+
+                for (const params of this.selectedHealthLabels) {
+                    baseURL += `&health=${params}`;
+                }
+
+                this.recipeKeyword = '';
+                this.selectedHealthLabels = [];
+
+                const response = await axios.get( baseURL );
+                this.recipeResults = response.data.hits;
+                console.log(this.recipeResults);  
+            }
+
+            if( this.selectedDietLabels.length > 0 && this.selectedHealthLabels.length > 0 ) {
+                let baseURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${this.recipeKeyword}&app_id=b05b0cfb&app_key=c3460b53b7a76fc2ed202ad1ae776112`;
+
+                for (const params of this.selectedDietLabels) {
+                    baseURL += `&diet=${params}`;
+                }
+                
+                for (const params of this.selectedHealthLabels) {
+                    baseURL += `&health=${params}`;
+                }
+
+                this.recipeKeyword = '';
+                this.selectedDietLabels = [];
+                this.selectedHealthLabels = [];
+
+                const response = await axios.get( baseURL );
+                this.recipeResults = response.data.hits;
+                console.log(this.recipeResults);
+            }
+        },
     }
 }
 
