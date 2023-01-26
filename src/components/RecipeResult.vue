@@ -5,12 +5,12 @@
             <p>Search for some recipes</p>
         </div>
 
-        <div v-else-if="loading">
-            <p>Loading...</p>
+        <div v-if="loading">
+            <p>Loading Cuyy...</p>
         </div>
-
-        <div v-else>
-            <h1 class="text-4xl font-semibold">NO RECIPE FOUND</h1>
+        
+        <div v-if="resultShow">
+            <h1>results</h1>
         </div>
     </div>
 
@@ -27,12 +27,12 @@ export default {
         },
 
         begin() {
-            return recipe.isLoadingToSearch == false;
+            return recipe.isLoadingToSearch == false && Object.keys(recipe.recipeResults).length < 1;
         },
 
-        noRecipeFound() {
-            return recipe.recipeResults.hits.length < 1;
-        }
+        resultShow() {
+            return recipe.isLoadingToSearch == false && Object.keys(recipe.recipeResults).length > 0;
+        },
     }
 }
 

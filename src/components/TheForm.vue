@@ -136,7 +136,6 @@ export default {
                 },
             ],
             recipeResults: [],
-            isLoadingToSearch: false
         }
     },
 

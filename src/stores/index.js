@@ -1,6 +1,6 @@
 import { reactive } from "vue"
 
 export const recipe = reactive({
-    recipeResults: [],
+    recipeResults: {},
     isLoadingToSearch: false
 })
