@@ -12,6 +12,10 @@
         <div v-if="resultShow">
             <h1>results</h1>
         </div>
+
+        <div v-if="recipeNotFound">
+            <h1>Recipe Not Found</h1>
+        </div>
     </div>
 
 </template>
@@ -31,8 +35,12 @@ export default {
         },
 
         resultShow() {
-            return recipe.isLoadingToSearch == false && Object.keys(recipe.recipeResults).length > 0;
+            return recipe.isLoadingToSearch == false && Object.keys(recipe.recipeResults).length > 0 && !this.recipeNotFound;
         },
+
+        recipeNotFound() {
+            return recipe.isRecipeNotFound && !this.loading
+        }
     }
 }
 

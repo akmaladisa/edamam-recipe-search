@@ -152,6 +152,12 @@ export default {
 
                 recipe.recipeResults = response.data;
 
+                if( recipe.recipeResults.hits.length < 1 ) {
+                    recipe.isRecipeNotFound = true
+                } else {
+                    recipe.isRecipeNotFound = false
+                }
+
                 recipe.isLoadingToSearch = !recipe.isLoadingToSearch
                 this.recipeKeyword = '';
 
@@ -174,6 +180,13 @@ export default {
 
                 const response = await axios.get( baseURL );
                 recipe.recipeResults = response.data;
+
+                if( recipe.recipeResults.hits.length < 1 ) {
+                    recipe.isRecipeNotFound = true
+                } else {
+                    recipe.isRecipeNotFound = false
+                }
+
                 recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
                 console.log(recipe.recipeResults);
             }
@@ -192,6 +205,13 @@ export default {
 
                 const response = await axios.get( baseURL );
                 recipe.recipeResults = response.data;
+
+                if( recipe.recipeResults.hits.length < 1 ) {
+                    recipe.isRecipeNotFound = true
+                } else {
+                    recipe.isRecipeNotFound = false
+                }
+
                 recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
                 console.log(recipe.recipeResults);  
             }
@@ -214,6 +234,13 @@ export default {
 
                 const response = await axios.get( baseURL );
                 recipe.recipeResults = response.data;
+
+                if( recipe.recipeResults.hits.length < 1 ) {
+                    recipe.isRecipeNotFound = true
+                } else {
+                    recipe.isRecipeNotFound = false
+                }
+
                 recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
                 console.log(recipe.recipeResults);
             }
