@@ -6,11 +6,18 @@
         </div>
 
         <div v-if="loading">
-            <p>Loading Cuyy...</p>
+            <p>Loading...</p>
         </div>
         
         <div v-if="resultShow">
-            <h1>results</h1>
+            <div v-for="resep in recipe.recipeResults.hits" :key="resep.recipe.uri" class="mb-10">
+                <the-card href="#" variant="horizontal" :img-src="resep.recipe.image" img-alt="Desk">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ resep.recipe.label }}</h5>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">
+                    source : <a :href="resep.recipe.url" class="text-blue-500 hover:text-blue-700 hover:font-medium" target="_blank" rel="noopener">{{ resep.recipe.source }}</a>
+                    </p>
+                </the-card>
+            </div>
         </div>
 
         <div v-if="recipeNotFound">
@@ -23,8 +30,19 @@
 <script>
 
 import { recipe } from '../stores/index.js';
+import { TheCard } from 'flowbite-vue'
 
 export default {
+    data() {
+        return {
+            recipe,
+        }
+    },
+
+    components: {
+        TheCard
+    },
+
     computed: {
         loading() {
             return recipe.isLoadingToSearch == true;

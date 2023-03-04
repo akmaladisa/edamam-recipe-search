@@ -5,7 +5,7 @@
         </a>
     </div>
 
-    <div class="w-96 my-3">
+    <div class="w-96 my-3 text-center mx-auto">
         <img src="../assets/food.svg" alt="Food">
 
         <p class="mt-1 text-center">Welcome To</p>
