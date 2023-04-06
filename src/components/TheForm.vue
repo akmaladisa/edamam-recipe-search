@@ -1,5 +1,5 @@
 <template>
-    <div class="my-3">
+    <div class="my-3 px-5">
         <h1 class="font-semibold mb-3 text-3xl text-center">Find Recipe</h1>
 
         <form @submit.prevent="searchRecipe">
@@ -152,6 +152,8 @@ export default {
 
                 recipe.recipeResults = response.data;
 
+                console.log(recipe.recipeResults.hits);
+
                 if( recipe.recipeResults.hits.length < 1 ) {
                     recipe.isRecipeNotFound = true
                 } else {
@@ -160,8 +162,6 @@ export default {
 
                 recipe.isLoadingToSearch = !recipe.isLoadingToSearch
                 this.recipeKeyword = '';
-
-                console.log(recipe.recipeResults);
             }
 
             if( this.selectedDietLabels.length > 0 && this.selectedHealthLabels.length < 1 ) {
@@ -188,7 +188,6 @@ export default {
                 }
 
                 recipe.isLoadingToSearch = !recipe.isLoadingToSearch;
-                console.log(recipe.recipeResults);
             }
 
             if( this.selectedHealthLabels.length > 0 && this.selectedDietLabels.length < 1 ) {
